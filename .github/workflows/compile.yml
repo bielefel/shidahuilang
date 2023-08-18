@@ -76,8 +76,7 @@ jobs:
       working-directory: /${{ env.DIY_WORK }}
       run: |
         git clone -b "${REPO_BRANCH}" --single-branch "${REPO_URL}" openwrt
-        kernel_patch="$(grep -Eo "KERNEL_PATCHVER.*[0-9.]+" "${GITHUB_WORKSPACE}/openwrt/target/linux/x86/Makefile" |grep -Eo "[0-9.]+")"
-        wget -O "${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-${kernel_patch}/600-bnx2x-warpcore-8727-2g5.patch" "https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch"
+        wget -O ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-5.10/600-bnx2x-warpcore-8727-2g5.patch "https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch"
         ln -sf /${{ env.DIY_WORK }}/openwrt ${GITHUB_WORKSPACE}/openwrt
         cp -Rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/openwrt/build
         chmod -R +x ${GITHUB_WORKSPACE}/openwrt/build
