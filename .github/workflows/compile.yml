@@ -78,7 +78,7 @@ jobs:
         git clone -b "${REPO_BRANCH}" --single-branch "${REPO_URL}" openwrt
         ln -sf /${{ env.DIY_WORK }}/openwrt ${GITHUB_WORKSPACE}/openwrt
         cp -Rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/openwrt/build
-        wget "https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/packages/Packages.gz"
+        wget "https://mirrors.aliyun.com/openwrt/releases/22.03-SNAPSHOT/targets/x86/64/packages/Packages.gz"
         zgrep -m 1 "Depends: kernel (=.*)$" Packages.gz | sed -e 's/.*-\(.*\))/\1/' > openwrt/.vermagic
         echo "kernel hash: $(cat openwrt/.vermagic)"
         sed -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' -i openwrt/include/kernel-defaults.mk
