@@ -78,7 +78,7 @@ jobs:
         git clone -b "${REPO_BRANCH}" --single-branch "${REPO_URL}" openwrt
         ln -sf /${{ env.DIY_WORK }}/openwrt ${GITHUB_WORKSPACE}/openwrt
         cp -Rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/openwrt/build
-        mv ${GITHUB_WORKSPACE}/openwrt/build/600-bnx2x-warpcore-8727-2g5.patch ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-5.10/
+        cp ${GITHUB_WORKSPACE}/openwrt/build/600-bnx2x-warpcore-8727-2g5.patch ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-5.10/
         chmod -R +x ${GITHUB_WORKSPACE}/openwrt/build
     
     - name: 公 告
@@ -112,6 +112,7 @@ jobs:
       run: |
         cd openwrt
         source ${BUILD_PATH}/common.sh && Diy_xinxi
+        ls -alh ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-5.10/
         
     - name: 缓存加速
       if: env.CACHEWRTBUILD_SWITCH == 'true'
