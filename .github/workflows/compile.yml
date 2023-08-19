@@ -119,7 +119,9 @@ jobs:
       run: |
         cd openwrt
         source ${BUILD_PATH}/common.sh && Diy_xinxi
-        ls -alh ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-5.10/
+        kernel_version=$(grep KERNEL_PATCHVER openwrt/target/linux/x86/Makefile)
+        echo "kernel version:${kernel_version#*=}"
+        ls -alh ${GITHUB_WORKSPACE}/openwrt/target/linux/x86/patches-${kernel_version#*=}/
         
     - name: 缓存加速
       if: env.CACHEWRTBUILD_SWITCH == 'true'
