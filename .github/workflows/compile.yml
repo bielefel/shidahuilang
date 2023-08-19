@@ -78,11 +78,11 @@ jobs:
         git clone -b "${REPO_BRANCH}" --single-branch "${REPO_URL}" openwrt
         ln -sf /${{ env.DIY_WORK }}/openwrt ${GITHUB_WORKSPACE}/openwrt
         cp -Rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/openwrt/build
-        REPO_BRANCH="$(echo ${REPO_BRANCH}|grep -Eo "[0-9.]+")"
-        wget "https://mirrors.aliyun.com/openwrt/releases/${REPO_BRANCH}-SNAPSHOT/targets/x86/64/packages/Packages.gz"
-        zgrep -m 1 "Depends: kernel (=.*)$" Packages.gz | sed -e 's/.*-\(.*\))/\1/' > openwrt/.vermagic
-        echo "kernel hash: $(cat openwrt/.vermagic)"
-        sed -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' -i openwrt/include/kernel-defaults.mk
+        # REPO_BRANCH="$(echo ${REPO_BRANCH}|grep -Eo "[0-9.]+")"
+        # wget "https://mirrors.aliyun.com/openwrt/releases/${REPO_BRANCH}-SNAPSHOT/targets/x86/64/packages/Packages.gz"
+        # zgrep -m 1 "Depends: kernel (=.*)$" Packages.gz | sed -e 's/.*-\(.*\))/\1/' > openwrt/.vermagic
+        # echo "kernel hash: $(cat openwrt/.vermagic)"
+        # sed -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' -i openwrt/include/kernel-defaults.mk
         kernel_version=$(grep KERNEL_PATCHVER openwrt/target/linux/x86/Makefile)
         echo "kernel version:${kernel_version#*=}"
         wget -O openwrt/target/linux/x86/patches-${kernel_version#*=}/600-bnx2x-warpcore-8727-2g5.patch "https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch"
