@@ -169,6 +169,7 @@ jobs:
         echo "kernel hash: $(cat openwrt/.vermagic)"
         sed -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' -i openwrt/include/kernel-defaults.mk
         kernel_version=$(grep KERNEL_PATCHVER openwrt/target/linux/x86/Makefile)
+        echo "kernel version:${kernel_version#*=}"
         wget -O openwrt/target/linux/x86/patches-${kernel_version#*=}/600-bnx2x-warpcore-8727-2g5.patch "https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch"
         chmod -R +x ${GITHUB_WORKSPACE}/openwrt/build
     
